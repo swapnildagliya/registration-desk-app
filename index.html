@@ -72,10 +72,18 @@ document.getElementById('stats').innerHTML=
 const esc=s=>(s||'').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
 function hl(t,toks){let o=esc(t);for(const q of toks){if(!q)continue;
  const i=o.toLowerCase().indexOf(q);if(i>=0)o=o.slice(0,i)+'<mark>'+o.slice(i,i+q.length)+'</mark>'+o.slice(i+q.length);}return o;}
+function pkgColor(cat){
+ if(!cat) return '#3a9b5e';
+ if(cat.includes('Full')) return '#e8640a';
+ if(cat.includes('Fri + Sat')||cat.includes('Friday')) return '#d63384';
+ if(cat.includes('Sunday')) return '#3a7fc1';
+ if(cat.includes('Lecture')) return '#5a6b7a';
+ return '#3a9b5e';
+}
 function badges(p){
  let b=[];
  if(p.cat==='Single Workshop') b.push(`<span class="b single">Single Workshop ×${p.events.length}</span>`);
- else if(p.cat) b.push(`<span class="b pkg">${esc(p.cat)}</span>`);
+ else if(p.cat) b.push(`<span class="b" style="background:${pkgColor(p.cat)}">${esc(p.cat)}</span>`);
  if(p.museum>0) b.push(`<span class="b museum">Museum QR ×${p.museum}</span>`);
  if(p.tour>0)   b.push(`<span class="b tour">Historical Tour ×${p.tour}</span>`);
  if(p.gala>0)   b.push(`<span class="b gala">Gala Showcase ×${p.gala}</span>`);
